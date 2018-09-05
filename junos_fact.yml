@@ -1,16 +1,16 @@
 ---
-- name: Get Device Facts
-  hosts: all
-  roles:
-    - Juniper.junos
+- name: Get Junos facts from vMX router
+  hosts: JUNIPER-HOSTS
   connection: local
   gather_facts: no
-
   tasks:
-    - name: Retrieve facts from devices running Junos OS
-      juniper_junos_facts:  
-        host: "{{ inventory_hostname }}"
-        savedir: "{{ playbook_dir }}"
-    - name: Print version
-      debug:
-        var: junos.version
+    - name: gather junos_facts
+      junos_facts:
+      register: version
+
+    - debug:
+        msg: "{{version}}"
+
+    - name: collect default set of facts and configuration
+      junos_facts:
+        gather_subset: config
