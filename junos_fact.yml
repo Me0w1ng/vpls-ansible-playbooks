@@ -1,7 +1,7 @@
 ---
 - name: Get Junos facts from vMX router
   hosts: JUNIPER-HOSTS
-  connection: local
+  connection: netconf
   gather_facts: no
   tasks:
     - name: gather junos_facts
